@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+  - Search Results
+{% endblock title %}
+
+{% block content %}
+  <a href="{{ url_for('home') }}">Do another search</a>
+  <h2>RESULTS</h2>
+  {% for x in content %}
+    <img src='data:image/jpeg;base64, {{ x["image"] }}' />
+    <p>
+        Filename: {{ x['filepath'] }}<br/>
+        Distance: {{ x['_additional']['distance'] }}
+    </p>
+  {% else %}
+    <p>No images found!</p>
+  {% endfor %}
+{% endblock content %}
