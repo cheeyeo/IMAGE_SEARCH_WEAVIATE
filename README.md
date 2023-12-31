@@ -82,3 +82,14 @@ https://milvus.io/docs/image_similarity_search.md
 
 
 https://github.com/towhee-io/examples/tree/main/image/reverse_image_search
+
+
+By cropping the main object detected it fixes the issue of some images wrongly referenced such as rhinos > elephants 
+
+But it also decreases accuracy of some of the other searches ???
+
+
+
+* Try zero-shot object detection ?
+
+https://huggingface.co/docs/transformers/v4.27.0/en/tasks/zero_shot_object_detection#imageguided-object-detection
