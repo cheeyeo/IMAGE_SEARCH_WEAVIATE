@@ -8,6 +8,14 @@ Based on CHAP 4 of book:
 'Practical Deep Learning for Cloud, Mobile, Edge'
 
 
+
+### Dataset
+
+Uses the `caltech101` dataset for indexing and testing
+
+
+
+
 ### Using CLIP for feature extraction
 
 Model is inside models/clip.py
