@@ -163,3 +163,5 @@ cython_debug/
 # Custom ignores
 dataset/
 testimgs/
+GroundingDINO/
+weights/
