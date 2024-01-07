@@ -8,11 +8,13 @@
   <a href="{{ url_for('home') }}">Do another search</a>
   <h2>RESULTS</h2>
   {% for x in content %}
-    <img src='data:image/jpeg;base64, {{ x["image"] }}' />
-    <p>
-        Filename: {{ x['filepath'] }}<br/>
-        Distance: {{ x['_additional']['distance'] }}
-    </p>
+    <div class="result">
+      <img src='data:image/jpeg;base64, {{ x["image"] }}' />
+      <p>
+          Filename: {{ x['filepath'] }}<br/>
+          Distance: {{ x['_additional']['distance'] }}
+      </p>
+    </div>
   {% else %}
     <p>No images found!</p>
   {% endfor %}

@@ -93,3 +93,12 @@ But it also decreases accuracy of some of the other searches ???
 * Try zero-shot object detection ?
 
 https://huggingface.co/docs/transformers/v4.27.0/en/tasks/zero_shot_object_detection#imageguided-object-detection
+
+
+#### Using DINOV2 for image retrieval
+
+
+https://www.kaggle.com/code/abdelkareem/dinov2-instance-retrieval
+
+
+https://github.com/roboflow/notebooks/blob/main/notebooks/dinov2-image-retrieval.ipynb

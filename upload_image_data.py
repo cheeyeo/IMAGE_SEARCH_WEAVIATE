@@ -7,8 +7,7 @@ import base64
 import weaviate
 from PIL import Image
 from tqdm import tqdm
-from models.resenet50 import ResNet50Vectorizer
-from models.clipmodel import ClipImageEmbed
+from models.dinov2 import DinoV2Embed
 
 
 def setup_batch(client):
@@ -60,16 +59,13 @@ def import_data(client, source_path):
     """
     Process all images and upload its vector into db
     """
-
-    # print(f'SOURCE PATH > ', source_path)
-
-    # model = ResNet50Vectorizer()
-    model = ClipImageEmbed()
+    model = DinoV2Embed()
 
     with client.batch as batch:
         for img_path in os.listdir(source_path):
             img_path = os.path.join(source_path, img_path)
             # print(f'IMG PATH: {img_path}')
+            tqdm.write(f'IMG PATH: {img_path}')
 
             img_vector = model.embed(img_path)
             img_base64 = img_to_base64(img_path)

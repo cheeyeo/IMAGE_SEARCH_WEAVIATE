@@ -8,8 +8,7 @@ import sys
 # add the submodules to $PATH
 # sys.path[0] is the current file's path
 sys.path.append(sys.path[0] + '/..')
-from models.resenet50 import ResNet50Vectorizer
-from models.clipmodel import ClipImageEmbed
+from models.dinov2 import DinoV2Embed
 
 
 app = Flask(__name__)
@@ -30,13 +29,12 @@ def search():
     file.save(tmp_filename)
 
     client = weaviate.Client(WEAVIATE_URL)
-    max_distance = 0.20
-    # model = ResNet50Vectorizer()
+    # max_distance = 0.20
 
-    model = ClipImageEmbed()
+    model = DinoV2Embed()
     query_vector = {
         'vector': model.embed(tmp_filename),
-        'distance': max_distance
+        # 'distance': max_distance
     }
 
     res = (

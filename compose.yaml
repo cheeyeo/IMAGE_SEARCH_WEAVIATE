@@ -13,11 +13,6 @@ services:
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
       DEFAULT_VECTORIZER_MODULE: 'none'
-      # ENABLE_MODULES: 'img2vec-neural'
       CLUSTER_HOSTNAME: 'node1'
-  # i2v-neural:
-  #   image: semitechnologies/img2vec-pytorch:resnet50
-  #   environment:
-  #     ENABLE_CUDA: '0'
 volumes:
   weaviate_data:

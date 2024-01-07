@@ -32,3 +32,8 @@
     width: 80%;
     margin: 0 auto;
   }
+
+  div.result{
+    float: left;
+    margin-right: 10px;
+  }

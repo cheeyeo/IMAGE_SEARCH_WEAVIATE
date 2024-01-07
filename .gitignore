@@ -165,3 +165,5 @@ dataset/
 testimgs/
 GroundingDINO/
 weights/
+searchvenv/
+*.tar
