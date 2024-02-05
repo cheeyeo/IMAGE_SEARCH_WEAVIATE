@@ -2,6 +2,10 @@
 
 An example of building a reverse image search engine i.e. Content Based Image Retrieval
 
+Code from the following blog post: 
+
+https://www.cheeyeo.dev/machine-learning/torch/opencv/dinov2/image-retrieval/2024/01/02/image-retrieval/
+
 
 ### Dataset
 
