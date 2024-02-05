@@ -3,102 +3,76 @@
 An example of building a reverse image search engine i.e. Content Based Image Retrieval
 
 
-Based on CHAP 4 of book:
-
-'Practical Deep Learning for Cloud, Mobile, Edge'
-
-
-
 ### Dataset
 
-Uses the `caltech101` dataset for indexing and testing
+Uses the [Caltech 256 dataset] for indexing and testing
 
 
+### Using DINOV2 model
+
+The model used to index the dataset features to create an embedding vector from is the DINOV2 model.
+
+Based on experiements from using Convolutional models such as ResNet and ViT models such as CLIP, DINOV2 has the highest accuracy in terms of being able to learn image features specific to each category, based on results of manual search.
+
+DINOV2 is trained using self-supervised learning without training labels so its able to generalize better to unseen datasets?
+
+The above would require evaluation metrics to verify...
+
+Both CLIP and ResNet models are unable to differentiate between object categories and sometimes retrieve images based on backgrounds or textures alone e.g matching an airplane with a helicopter with similar backgrounds; or returning image of rhino for query of image of elephant as they have similar textures...
 
 
-### Using CLIP for feature extraction
+### Setup
 
-Model is inside models/clip.py
+Run the weaviate DB via compose:
+```
+docker compose -f compose.yaml up
+```
 
-The issue with the ResNet model extractor is that its not very accurate
-
-Since CLIP has zero-shot object detection we can use the image encoder which is a ViT to encode image features...
-
-
-ResNet model, when trained on entire dataset of all categories, it started to return images which have similar background features but not similar content i.e. when matching a fighter jet, it returns images of helicopters with similar background...
-
-The same issue appears with the CLIP model but only for certain categories such as searching for elephants it might return some rhino images...
-
-The image vector is normalized in the CLIP model compared to the ResNet model; not sure if that has an effect...
-
-
-### Improvements
-
-* Using PCA to perform dimensionality reduction to help improve extracted features to improve accuracy ??
-
-* How do we detect each object in image automatically?
-
-
-
-
-
-
-### Weaviate
-
-https://weaviate.io/developers/weaviate/starter-guides/custom-vectors
-
-https://weaviate.io/blog/how-to-build-an-image-search-application-with-weaviate
-
-https://medium.com/@st3llasia/using-weaviate-to-find-similar-images-caddf32eaa3f
-
-
-
-### Steps
-
-* Feature extraction via Clip model pretrained.
-
-* Create db schema to store image vectors and other attrs such as filename and image blob
-
-* Import image data
-
-* Run query
-
-
+Create the schema first:
 ```
 python create_schema.py
-
-python upload_image_data.py
-
 ```
 
-To run webapp:
+This creates a class of **Image** with 2 attributes:
+* image, which stores a base64 encoding of the image
+* filepath, which stores filepath of image
+
+
+To index the images:
+```
+python upload_image_data.py
+```
+
+To start the webapp:
 ```
 flask --app webapp/app run --debug
 ```
 
-### TODO
+### Improvements / TODO
 
-https://milvus.io/docs/image_similarity_search.md
+* Using PCA to perform dimensionality reduction to help improve extracted features to improve accuracy ?
 
-
-https://github.com/towhee-io/examples/tree/main/image/reverse_image_search
-
-
-By cropping the main object detected it fixes the issue of some images wrongly referenced such as rhinos > elephants 
-
-But it also decreases accuracy of some of the other searches ???
+* Do we need to perform individual object detection for each image?
 
 
+### References
 
-* Try zero-shot object detection ?
+[Caltech 256 dataset]: https://data.caltech.edu/records/nyy15-4j048
 
-https://huggingface.co/docs/transformers/v4.27.0/en/tasks/zero_shot_object_detection#imageguided-object-detection
+[Weaviate guide]: https://weaviate.io/developers/weaviate/starter-guides/custom-vectors
+
+[Weaviate Image Search tutorial]: https://weaviate.io/blog/how-to-build-an-image-search-application-with-weaviate
+
+[Blog post on using Weaviate]: https://medium.com/@st3llasia/using-weaviate-to-find-similar-images-caddf32eaa3f
+
+[Example of reverse image search app]: https://github.com/towhee-io/examples/tree/main/image/reverse_image_search
+
+[DINO v2 image retrieval example]: https://www.kaggle.com/code/abdelkareem/dinov2-instance-retrieval
+
+[Sample notebook of DINOV2 image retrieval]: https://github.com/roboflow/notebooks/blob/main/notebooks/dinov2-image-retrieval.ipynb
 
 
-#### Using DINOV2 for image retrieval
-
-
-https://www.kaggle.com/code/abdelkareem/dinov2-instance-retrieval
-
-
-https://github.com/roboflow/notebooks/blob/main/notebooks/dinov2-image-retrieval.ipynb
+* [Weaviate guide]
+* [Weaviate Image Search tutorial]
+* [Blog post on using Weaviate]
+* [DINO v2 image retrieval example]

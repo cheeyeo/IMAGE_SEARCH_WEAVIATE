@@ -62,20 +62,20 @@ def import_data(client, source_path):
     model = DinoV2Embed()
 
     with client.batch as batch:
-        for img_path in os.listdir(source_path):
-            img_path = os.path.join(source_path, img_path)
-            # print(f'IMG PATH: {img_path}')
-            tqdm.write(f'IMG PATH: {img_path}')
+        for img_path in Path(source_path).rglob('**/*.jpg'):
+            if img_path.is_file():
+                # print(f'IMG PATH: {img_path}')
+                tqdm.write(f'IMG PATH: {img_path}')
 
-            img_vector = model.embed(img_path)
-            img_base64 = img_to_base64(img_path)
+                img_vector = model.embed(img_path)
+                img_base64 = img_to_base64(img_path)
 
-            data_properties = {
-                'image': img_base64,
-                'filepath': img_path
-            }
+                data_properties = {
+                    'image': img_base64,
+                    'filepath': str(img_path)
+                }
 
-            batch.add_data_object(data_properties, 'Image', vector=img_vector)
+                batch.add_data_object(data_properties, 'Image', vector=img_vector)
 
 
 if __name__ == '__main__':

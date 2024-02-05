@@ -1,0 +1,5 @@
+weaviate-client==3.25.3
+Pillow==9.5.0
+tqdm==4.62.3
+torch==2.1.0
+torchvision==0.16.0
